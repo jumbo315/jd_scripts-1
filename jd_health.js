@@ -40,9 +40,12 @@ if ($.isNode()) {
   cookiesArr.reverse();
   cookiesArr.push(...[$.getdata('CookieJD2'), $.getdata('CookieJD')]);
   cookiesArr.reverse();
+  cookiesArr = cookiesArr.filter(item => item !== "" && item !== null && item !== undefined);
 }
 const JD_API_HOST = 'https://api.m.jd.com/client.action';
-const inviteCodes = [`P04z54XCjVUnoaW5nJcXCCyoR8C6i9QR16e`, 'P04z54XCjVUnoaW5m9cZ2T6jChKkh8FWbFAplQ', `P04z54XCjVUnoaW5u2ak7ZCdan1Bdbpik_F9ud7lznm`, `P04z54XCjVUnoaW5m9cZ2ariXVJwFN5uKHNqnc`];
+const inviteCodes = ['T0225KkcRktIoVaDIBL0wPZZdQCjVUnoaW5kRrbA@T0***8v_VzQRob8VLRJxKb***ACjVUnoaW5kRrbA@T0205KkcH2Vkpja9fl-G_KF3CjVUnoaW5kRrbA@T0***8v_V6QRsb_F3XIR-b***ACjVUnoaW5kRrbA@T0225KkcRB9K8lHVdhL0lP4JdACjVUnoaW5kRrbA@T0***2vPt6RRgQ9***TSCjVUnoaW5kRrbA', 'T0225KkcRktIoVaDIBL0wPZZdQCjVUnoaW5kRrbA@T0***8v_VzQRob8VLRJxKb***ACjVUnoaW5kRrbA@T0205KkcH2Vkpja9fl-G_KF3CjVUnoaW5kRrbA@T0***8v_V6QRsb_F3XIR-b***ACjVUnoaW5kRrbA@T0225KkcRB9K8lHVdhL0lP4JdACjVUnoaW5kRrbA@T0***2vPt6RRgQ9***TSCjVUnoaW5kRrbA', `T0225KkcRktIoVaDIBL0wPZZdQCjVUnoaW5kRrbA@T0***8v_VzQRob8VLRJxKb***ACjVUnoaW5kRrbA@T0205KkcH2Vkpja9fl-G_KF3CjVUnoaW5kRrbA@T0***8v_V6QRsb_F3XIR-b***ACjVUnoaW5kRrbA@T0225KkcRB9K8lHVdhL0lP4JdACjVUnoaW5kRrbA@T0***2vPt6RRgQ9***TSCjVUnoaW5kRrbA`, `T0225KkcRktIoVaDIBL0wPZZdQCjVUnoaW5kRrbA@T0***8v_VzQRob8VLRJxKb***ACjVUnoaW5kRrbA@T0205KkcH2Vkpja9fl-G_KF3CjVUnoaW5kRrbA@T0***8v_V6QRsb_F3XIR-b***ACjVUnoaW5kRrbA@T0225KkcRB9K8lHVdhL0lP4JdACjVUnoaW5kRrbA@T0***2vPt6RRgQ9***TSCjVUnoaW5kRrbA`,
+'T0225KkcRktIoVaDIBL0wPZZdQCjVUnoaW5kRrbA@T0***8v_VzQRob8VLRJxKb***ACjVUnoaW5kRrbA@T0205KkcH2Vkpja9fl-G_KF3CjVUnoaW5kRrbA@T0***8v_V6QRsb_F3XIR-b***ACjVUnoaW5kRrbA@T0225KkcRB9K8lHVdhL0lP4JdACjVUnoaW5kRrbA@T0***2vPt6RRgQ9***TSCjVUnoaW5kRrbA',
+'T0225KkcRktIoVaDIBL0wPZZdQCjVUnoaW5kRrbA@T0***8v_VzQRob8VLRJxKb***ACjVUnoaW5kRrbA@T0205KkcH2Vkpja9fl-G_KF3CjVUnoaW5kRrbA@T0***8v_V6QRsb_F3XIR-b***ACjVUnoaW5kRrbA@T0225KkcRB9K8lHVdhL0lP4JdACjVUnoaW5kRrbA@T0***2vPt6RRgQ9***TSCjVUnoaW5kRrbA'];
 !(async () => {
   await requireConfig();
   if (!cookiesArr[0]) {
@@ -64,8 +67,6 @@ const inviteCodes = [`P04z54XCjVUnoaW5nJcXCCyoR8C6i9QR16e`, 'P04z54XCjVUnoaW5m9c
 
         if ($.isNode()) {
           await notify.sendNotify(`${$.name}cookie已失效 - ${$.UserName}`, `京东账号${$.index} ${$.UserName}\n请重新登录获取cookie`);
-        } else {
-          $.setdata('', `CookieJD${i ? i + 1 : "" }`);//cookie失效，故清空cookie。$.setdata('', `CookieJD${i ? i + 1 : "" }`);//cookie失效，故清空cookie。
         }
         continue
       }
@@ -266,7 +267,7 @@ function readShareCode() {
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (data) {
-            console.log(`随机取${randomCount}个码放到您固定的互助码后面`)
+            console.log(`随机取${randomCount}个码放到您固定的互助码后面(不影响已有固定互助)`)
             data = JSON.parse(data);
           }
         }
